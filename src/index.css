@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 42 40% 95%;
+    --foreground: 30 10% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 30 10% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 30 10% 11%;
+    --primary: 14 70% 41%;
+    --primary-foreground: 42 40% 96%;
+    --secondary: 42 30% 92%;
+    --secondary-foreground: 30 10% 11%;
+    --muted: 42 30% 92%;
+    --muted-foreground: 30 5% 40%;
+    --accent: 171 30% 17%;
+    --accent-foreground: 42 40% 96%;
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 40 25% 82%;
+    --input: 40 25% 82%;
+    --ring: 14 70% 41%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  section[id],
+  footer[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  body {
+    background-color: #f7f3ec;
+    color: #1b1916;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: rgba(178, 59, 32, 0.18);
+    color: #1b1916;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f7f3ec;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #ddd5c5;
+    border-radius: 6px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #b23b20;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid #b23b20;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Brillo que cruza el botón */
+  .btn-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-sheen::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+  }
+  .btn-sheen:hover::after {
+    left: 130%;
+  }
+
+  /* Texto en degradado de tinta para acentos serif */
+  .text-inkmetal {
+    background: linear-gradient(105deg, #1b1916 0%, #4a443b 55%, #1b1916 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* Franja ocupada en la rejilla de horas */
+  .slot-occupied {
+    background-image: repeating-linear-gradient(
+      135deg,
+      rgba(222, 213, 197, 0.9) 0px,
+      rgba(222, 213, 197, 0.9) 3px,
+      transparent 3px,
+      transparent 8px
+    );
+  }
+
+  .day-option,
+  .slot-option,
+  .service-option {
+    transition: all 0.2s ease;
+  }
+  .day-option:hover,
+  .slot-option:hover,
+  .service-option:hover {
+    transform: translateY(-1px);
+  }
+  .slot-option:disabled:hover,
+  .day-option:focus-visible,
+  .service-option:focus-visible {
+    transform: none;
+  }
+
+  /* Conector visual entre pasos del formulario */
+  .step-badge {
+    background: #1b1916;
+    color: #f7f3ec;
+  }
+
+  /* Estado SELECCIONADO de día / hora / servicio */
+  .seleccionado {
+    background: #b23b20 !important;
+    border-color: #b23b20 !important;
+    box-shadow:
+      0 0 0 1px rgba(178, 59, 32, 0.25),
+      0 6px 20px -8px rgba(178, 59, 32, 0.5) !important;
+  }
+  .seleccionado,
+  .seleccionado span {
+    color: #f7f3ec !important;
+  }
+
+  /* Tarjetas con elevación suave */
+  .card-lift {
+    transition:
+      transform 0.35s ease,
+      box-shadow 0.35s ease,
+      border-color 0.35s ease;
+  }
+  .card-lift:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px -28px rgba(27, 25, 22, 0.25);
+  }
+
+  /* Punto separador decorativo */
+  .dot-divider {
+    background-image: radial-gradient(circle, rgba(27, 25, 22, 0.35) 1px, transparent 1px);
+    background-size: 14px 14px;
+    background-repeat: repeat-x;
+    height: 12px;
+  }
+
+  /* Revelado de secciones al hacer scroll */
+  .reveal-target {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
+  }
+  .reveal-target.reveal-in {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-target {
+      opacity: 1;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+}
